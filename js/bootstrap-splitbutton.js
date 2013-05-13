@@ -7,30 +7,38 @@
     * ============================= */
 
     var SplitButton = function (el) {
-        var $this = $(el).addClass('bootstrap-splitbutton')
-            , actionButton = $this.children('a:first')
-            , actionLabel = $this.children('span:first')
-            , dropdownList = $this.children('ul:first');
+        var that = this;
+        this.$element = $(el).addClass('bootstrap-splitbutton')
+            , this.actionButton = this.$element.children('a:first')
+            , this.actionLabel = this.$element.children('span:first')
+            , this.dropdownList = this.$element.children('ul:first');
 
-        var btnClass = $this.data('buttonclass');
-        if (typeof (btnClass) == 'undefined' || btnClass.length == 0 || btnClass.split(' ').indexOf('btn') == -1) {
-            btnClass = 'btn'
+        // set button styles
+        this.btnClass = this.$element.data('buttonclass');
+        if (typeof (btnClass) != 'undefined' && btnClass.length > 0) {
+            this.btnClass = $.grep(this.btnClass.split(' '), function(n, i) { return n.startsWith('btn-'); }).pop();
         }
 
-        if (actionButton.length > 0) {
-            actionButton.addClass(btnClass);
-            actionButton.after('<a class="' + btnClass + ' dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>');
+        this.btnSizeClass = this.$element.data('buttonsizeclass');
+        if (typeof (this.btnSizeClass) != 'undefined' && this.btnSizeClass.length > 0) {
+            this.btnSizeClass = $.grep(this.btnSizeClass.split(' '), function(n, i) { return n.startsWith('btn-'); }).pop();
+        }
+
+        // create split button skeleton
+        var btnCss = $.grep(['btn', this.btnSizeClass, this.btnClass], function(n) { return typeof(n) !== 'undefined' }).join(' ');
+        if (this.actionButton.length > 0) {
+            this.actionButton.addClass(btnCss);
+            this.actionButton.after('<a class="' + btnCss + ' dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>');
         } else {
-            $this.prepend('<a class="' + btnClass + ' dropdown-toggle" data-toggle="dropdown" href="#" />');
-            if (actionLabel.length > 0) {
-                actionLabel.text(actionLabel.text() + ' ').attr('class', '');
-                $this.children('a:first').prepend(actionLabel);
+            this.$element.prepend('<a class="' + btnCss + ' dropdown-toggle" data-toggle="dropdown" href="#" />');
+            if (this.actionLabel.length > 0) {
+                this.actionLabel.text(this.actionLabel.text() + ' ').attr('class', '');
+                this.$element.children('a:first').prepend(this.actionLabel);
             }
-            $this.children('a:first').append('<span class="caret" />');
+            this.$element.children('a:first').append('<span class="caret" />');
         }
-
-        dropdownList.addClass('dropdown-menu');
-        $this.addClass('btn-group');
+        this.dropdownList.addClass('dropdown-menu');
+        this.$element.addClass('btn-group');
     };
 
     $.fn.splitbutton = function (option) {

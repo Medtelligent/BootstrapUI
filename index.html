@@ -123,7 +123,39 @@
                         <div>
                             <h2>Splitbutton</h2>
                             <p>
-                                Coming soon...
+                                <div id="splitbutton1">
+                                    <span>Label</span>
+                                    <ul>
+                                        <li><a href='#'>Action 1</a></li>
+                                        <li><a href='#'>Action 2</a></li>
+                                    </ul>
+                                </div>
+                                <a id="bind-splitbutton1" href="javascript:void(0)">Bind</a>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#bind-splitbutton1').click(function() {
+                                            $('#splitbutton1').splitbutton();
+                                        });
+                                    })
+                                </script>
+                            </p>
+
+                            <p>
+                                <div id="splitbutton2" data-buttonSizeClass='btn-large'>
+                                    <a>Action</a>
+                                    <ul>
+                                        <li><a href='#'>Action 1</a></li>
+                                        <li><a href='#'>Action 2</a></li>
+                                    </ul>
+                                </div>
+                                <a id="bind-splitbutton2" href="javascript:void(0)">Bind</a>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#bind-splitbutton2').click(function() {
+                                            $('#splitbutton2').splitbutton();
+                                        });
+                                    })
+                                </script>
                             </p>
                         </div>
                     </div>
@@ -137,5 +169,7 @@
             </div> <!-- /container -->
             <script src="js/bootstrap.min.js"></script>
             <script src="js/bootstrap-buttonset.js"></script>
+            <script src="js/bootstrap-splitbutton.js"></script>
+            <script src="js/bootstrap-combobox.js"></script>
         </body>
     </html>
