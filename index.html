@@ -26,6 +26,7 @@
                 text-align: center;
               }
             </style>
+            <script src="http://code.jquery.com/jquery.js"></script>
         </head>
         <body>
             <div class="container-narrow">
@@ -54,14 +55,68 @@
                         <div>
                             <h2>Radio Buttonset</h2>
                             <p>
-                                Coming soon...
+                                <ul id="rdbtnset1" data-buttonActiveClass='btn-success'>
+                                    <li>
+                                        <label for="rdbtnset1-1">
+                                            <input type="radio" id="rdbtnset1-1" name="rdbtnset1" value="1" />
+                                            Option 1
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label for="rdbtnset1-2">
+                                            <input type="radio" id="rdbtnset1-2" name="rdbtnset1" value="2" />
+                                            Option 2
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label for="rdbtnset1-3">
+                                            <input type="radio" id="rdbtnset1-3" name="rdbtnset1" value="3" />
+                                            Option 3
+                                        </label>
+                                    </li>
+                                </ul>
+                                <a id="bind-rdbtnset1" href="javascript:void(0)">Bind</a>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#bind-rdbtnset1').click(function() {
+                                            $('#rdbtnset1').radiobuttonset();
+                                        });
+                                    })
+                                </script>
                             </p>
                         </div>
 
                         <div>
                             <h2>Checkbox Buttonset</h2>
                             <p>
-                                Coming soon...
+                                <ul id="cbbtnset1" data-buttonActiveClass='btn-success'>
+                                    <li>
+                                        <label for="cbbtnset1-1">
+                                            <input type="checkbox" id="cbbtnset1-1" name="cbbtnset1" value="1" />
+                                            Option 1
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label for="cbbtnset1-2">
+                                            <input type="checkbox" id="cbbtnset1-2" name="cbbtnset1" value="2" />
+                                            Option 2
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label for="cbbtnset1-3">
+                                            <input type="checkbox" id="cbbtnset1-3" name="cbbtnset1" value="3" />
+                                            Option 3
+                                        </label>
+                                    </li>
+                                </ul>
+                                <a id="bind-cbbtnset1" href="javascript:void(0)">Bind</a>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#bind-cbbtnset1').click(function() {
+                                            $('#cbbtnset1').checkboxbuttonset();
+                                        });
+                                    })
+                                </script>
                             </p>
                         </div>
 
@@ -80,7 +135,7 @@
                     <p>&copy; Company 2013</p>
                 </div>
             </div> <!-- /container -->
-            <script src="http://code.jquery.com/jquery.js"></script>
             <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap-buttonset.js"></script>
         </body>
     </html>
