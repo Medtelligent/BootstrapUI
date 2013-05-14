@@ -1,14 +1,14 @@
 !function ($) {
     "use strict"; // jshint ;_;
 
-    var old = $.fn.splitbutton;
+    var old = $.fn.buttongroup;
 
-    /* SPLITBUTTON CLASS DEFINITION
+    /* buttongroup CLASS DEFINITION
     * ============================= */
 
-    var SplitButton = function (el) {
+    var ButtonGroup = function (el) {
         var that = this;
-        this.$element = $(el).addClass('bootstrap-splitbutton')
+        this.$element = $(el).addClass('bootstrap-buttongroup')
             , this.actionButton = this.$element.children('a:first')
             , this.actionLabel = this.$element.children('span:first')
             , this.dropdownList = this.$element.children('ul:first');
@@ -41,12 +41,12 @@
         this.$element.addClass('btn-group');
     };
 
-    $.fn.splitbutton = function (option) {
+    $.fn.buttongroup = function (option) {
         return this.each(function () {
             var $this = $(this)
-                , data = $this.data('splitbutton');
+                , data = $this.data('buttongroup');
 
-            if (!data) $this.data('splitbutton', (data = new SplitButton(this)));
+            if (!data) $this.data('buttongroup', (data = new ButtonGroup(this)));
         });
     }
 } (window.jQuery);
