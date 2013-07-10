@@ -38,7 +38,11 @@
         var btnCss = $.grep(['btn', this.btnSizeClass, this.btnClass], function(n) { return typeof(n) !== 'undefined' }).join(' ');
         this.labels.each(function () {
             var $label = $(this).remove();
-            that.btnGroup.append('<button type="button" class="' + btnCss + '" data-for="' + $label.attr('for') + '">' + $label.html() + '</button>')
+            that.btnGroup.append($('<button type="button">' + $label.html() + '</button>').attr({
+                class        : btnCss,
+                'data-for'   : $label.attr('for'),
+                title        : $label.attr('title')
+            }));
         });
 
         // set orientation
