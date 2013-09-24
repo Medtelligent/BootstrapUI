@@ -32,7 +32,7 @@
         } else {
             this.$element.prepend('<a class="' + btnCss + ' dropdown-toggle" data-toggle="dropdown" href="#" />');
             if (this.actionLabel.length > 0) {
-                this.actionLabel.text(this.actionLabel.text() + ' ').attr('class', '');
+                this.actionLabel.html(this.actionLabel.html() + ' ').attr('class', '');
                 this.$element.children('a:first').prepend(this.actionLabel);
             }
             this.$element.children('a:first').append('<span class="caret" />');
