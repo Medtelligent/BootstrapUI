@@ -216,6 +216,7 @@
                 case 9: // tab
                 case 13: // enter
                 case 27: // escape
+                    if (!this.shown) return
                     e.preventDefault()
                     break
 
