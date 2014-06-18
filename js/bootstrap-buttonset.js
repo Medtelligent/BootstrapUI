@@ -18,18 +18,20 @@
         // set button styles
         this.btnClass = this.$element.data('buttonclass');
         if (typeof (this.btnClass) != 'undefined' && this.btnClass.length > 0) {
-            this.btnClass = $.grep(this.btnClass.split(' '), function(n, i) { return n.startsWith('btn-'); }).pop();
+            this.btnClass = $.grep(this.btnClass.split(' '), function(n, i) { return n.indexOf('btn-') == 0; }).pop();
         }
 
         this.btnSizeClass = this.$element.data('buttonsizeclass');
         if (typeof (this.btnSizeClass) != 'undefined' && this.btnSizeClass.length > 0) {
-            this.btnSizeClass = $.grep(this.btnSizeClass.split(' '), function(n, i) { return n.startsWith('btn-'); }).pop();
+            this.btnSizeClass = $.grep(this.btnSizeClass.split(' '), function(n, i) { return n.indexOf('btn-') == 0; }).pop();
         }
 
         this.btnActiveClass = this.$element.data('buttonactiveclass');
         if (typeof (this.btnActiveClass) != 'undefined' && this.btnActiveClass.length > 0) {
-            this.btnActiveClass = $.grep(this.btnActiveClass.split(' '), function(n, i) { return n.startsWith('btn-') && n != that.btnClass && n != that.btnSizeClass; }).pop();
+            this.btnActiveClass = $.grep(this.btnActiveClass.split(' '), function(n, i) { return n.indexOf('btn-') == 0 && n != that.btnClass && n != that.btnSizeClass; }).pop();
         }
+
+        this.btnOptionClasses = this.$element.data('buttonoptionclasses') || {};
 
         // hide all controls
         this.controls.css({ position: 'absolute', height: '1px', width: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' });
@@ -38,7 +40,7 @@
         var btnCss = $.grep(['btn', this.btnSizeClass, this.btnClass], function(n) { return typeof(n) !== 'undefined' }).join(' ');
         this.labels.each(function () {
             var $label = $(this).remove();
-            that.btnGroup.append($('<button type="button">' + $label.html() + '</button>').attr({ 'class': btnCss, 'data-for': $label.attr('for'), 'title': $label.attr('title') }));
+            that.btnGroup.append($('<button type="button">' + $label.html() + '</button>').attr({ 'class': btnCss, 'data-for': $label.attr('for'), 'title': $label.attr('title'), 'data-active-class': that.btnOptionClasses[$('#' + $label.attr('for')).attr('value')] || that.btnActiveClass }));
         });
 
         // set orientation
@@ -49,7 +51,7 @@
 
         // check default selection
         this.controls.filter(':checked').each(function () {
-            var activeCss = $.grep(['active', that.btnActiveClass], function(n) { return typeof(n) !== 'undefined' }).join(' ');
+            var activeCss = $.grep(['active', that.btnOptionClasses[$(this).attr('value')] || that.btnActiveClass], function(n) { return typeof(n) !== 'undefined' }).join(' ');
             that.btnGroup.children('button[data-for="' + $(this).attr('id') + '"]').addClass(activeCss);
         });
 
@@ -64,7 +66,13 @@
 
         // bind the buttons to update the controls
         var instance = this.instance;
-        if (instance.btnActiveClass) {
+        if (instance.btnOptionClasses) {
+            instance.btnGroup.on('click', 'button', function () {
+                var optionClasses = $.makeArray(instance.btnGroup.children('button').map(function (i, b) { return $(b).data('activeClass'); })).join(' ');
+                instance.btnGroup.children('button').removeClass(optionClasses).addClass(instance.btnClass);
+                $(this).removeClass(instance.btnClass).addClass($(this).data('activeClass'));
+            });
+        } else if (instance.btnActiveClass) {
             instance.btnGroup.on('click', 'button', function () {
                 instance.btnGroup.children('button').removeClass(instance.btnActiveClass).addClass(instance.btnClass);
                 $(this).removeClass(instance.btnClass).addClass(instance.btnActiveClass);
